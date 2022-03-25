@@ -2,11 +2,10 @@ from http import HTTPStatus
 
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.core.cache import cache
-
-from posts.models import Group, Post, Comment, Follow
+from posts.models import Group, Post, Follow
 from posts.tests import test_constant as const
 
 User = get_user_model()
@@ -194,7 +193,7 @@ class CacheTest(TestCase):
         cache.clear()
         response_new = self.authorized_client.get(const.POSTS_INDEX)
         new_posts = response_new.content
-        self.assertNotEqual(old_posts, new_posts,)
+        self.assertNotEqual(old_posts, new_posts, )
 
 
 class FollowViewsTest(TestCase):

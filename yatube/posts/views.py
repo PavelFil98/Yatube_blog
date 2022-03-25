@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
-
 from yatube.settings import PAGE_COUNT
 
 from .forms import PostForm, CommentForm
@@ -40,9 +39,9 @@ def group_posts(request, slug):
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     following = request.user.is_authenticated and Follow.objects.filter(
-                    user=request.user,
-                    author=author
-                ).exists()
+        user=request.user,
+        author=author
+    ).exists()
     paginator = Paginator(author.posts.all(), PAGE_COUNT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -81,7 +80,7 @@ def post_create(request):
                 text=new_text,
                 group=group,
                 author=request.user,
-                image=image,)
+                image=image, )
             return redirect('posts:profile', request.user.username)
         return render(request, 'posts/create_post.html', {'form': form})
 
