@@ -196,7 +196,7 @@ class CacheTest(TestCase):
         self.assertNotEqual(old_posts, new_posts, )
 
 
-class FollowViewsTest(TestCase):
+class FollowTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -252,9 +252,9 @@ class FollowViewsTest(TestCase):
         )
 
     def test_unfollow(self):
-        client = FollowViewsTest.authorized_user_unfol_client
-        user = FollowViewsTest.user_unfol
-        author = FollowViewsTest.author
+        client = self.authorized_user_unfol_client
+        user = self.user_unfol
+        author = self.author
         client.get(
             reverse(
                 'posts:profile_unfollow',
