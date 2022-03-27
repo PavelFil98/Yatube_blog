@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.test import TestCase, Client
 from django.urls import reverse
-from posts.models import Group, Post, Follow
+from posts.models import Group, Post, Follow, Comment
 from posts.tests import test_constant as const
 
 User = get_user_model()
@@ -159,6 +159,7 @@ class PaginatorViewsTest(TestCase):
 
 
 class CacheTest(TestCase):
+    """Проверяем, что кешируется главная страница"""
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -197,6 +198,7 @@ class CacheTest(TestCase):
 
 
 class FollowTest(TestCase):
+    """Проверяем подписки и отписки"""
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -271,42 +273,47 @@ class FollowTest(TestCase):
         )
 
 
-class CommentTest(TestCase):
+class CommentPagesTests(TestCase):
+    """Проверяем комментарии """
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.guest_client = Client()
-
-        cls.auth_user = User.objects.create_user(
-            username='test_auth_user'
-        )
-
-        cls.author = User.objects.create_user(
-            username='test_author'
-        )
-
-        cls.group = Group.objects.create(
-            title='test_group',
+        cls.group_object = Group.objects.create(
+            title='title',
             slug='test-slug',
-            description='test_description'
+            description=''
         )
 
-        cls.post = Post.objects.create(
-            text='test_post',
-            group=cls.group,
-            author=cls.author
+    def setUp(self):
+        self.user = User.objects.create_user(username='StasBasov')
+        self.authorized_client = Client()
+        self.authorized_client.force_login(self.user)
+        self.post = Post.objects.create(
+            text='text',
+            author=self.user,
+            group=CommentPagesTests.group_object,
+        )
+        self.comment = Comment.objects.create(
+            post=self.post,
+            text='text',
+            author=self.user,
         )
 
-    def test_comment_guest(self):
-        response = self.guest_client.get(
-            reverse(
-                'posts:add_comment',
-                kwargs={
-                    'post_id': self.post.pk
-                }
-            )
+    def test_create_comment(self):
+        form_data = {
+            'post': self.post,
+            'text': 'text',
+            'author': self.user,
+        }
+        response = self.authorized_client.post(
+            reverse('posts:add_comment', kwargs={'post_id': self.post.pk}),
+            data=form_data
         )
-        self.assertEqual(
-            response.status_code,
-            HTTPStatus.FOUND,
+        self.assertRedirects(
+            response,
+            reverse('posts:post_detail', kwargs={'post_id': self.post.pk})
         )
+        self.assertTrue(Comment.objects.latest('created'))
+        self.assertEqual(Comment.objects.latest('created').text,
+                         'text'
+                         )
