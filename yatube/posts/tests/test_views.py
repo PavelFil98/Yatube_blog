@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
@@ -160,6 +158,7 @@ class PaginatorViewsTest(TestCase):
 
 class CacheTest(TestCase):
     """Проверяем, что кешируется главная страница"""
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -199,6 +198,7 @@ class CacheTest(TestCase):
 
 class FollowTest(TestCase):
     """Проверяем подписки и отписки"""
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -275,6 +275,7 @@ class FollowTest(TestCase):
 
 class CommentPagesTests(TestCase):
     """Проверяем комментарии """
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
