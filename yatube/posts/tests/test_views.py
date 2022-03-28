@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
-from posts.models import Group, Post, Follow, Comment
+from posts.models import Group, Post
 from posts.tests import test_constant as const
 
 User = get_user_model()
@@ -153,6 +153,3 @@ class PaginatorViewsTest(TestCase):
     def test_profile_second_page_contains_three_records(self):
         response = self.client.get(const.POSTS_PROFILE + '?page=2')
         self.assertEqual(len(response.context['page_obj']), 3)
-
-
-
