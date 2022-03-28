@@ -90,7 +90,7 @@ class PostFormTests(TestCase):
             'image': self.uploaded_old2
         }
 
-        response = self.author_client.post(
+        self.author_client.post(
             const.POST_CREATE,
             data=form_data,
             follow=True

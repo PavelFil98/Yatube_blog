@@ -85,7 +85,6 @@ class CommentFormTests(TestCase):
 
     def test_create_comment_form(self):
         """Проверка формы создания нового комментария."""
-        author = self.author
         post = self.post
         client = self.auth_user_client
         comments_count = Comment.objects.filter(
