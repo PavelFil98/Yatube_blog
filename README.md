@@ -17,8 +17,6 @@
 ## Установка
 Клонируем репозиторий на локальную машину:
 
-`git clone https://github.com/DenisSivko/hw05_final.git`
-
 Создаем виртуальное окружение:
 
 `python -m venv venv`
