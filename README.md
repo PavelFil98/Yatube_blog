@@ -23,6 +23,8 @@
 ## Установка
 Клонируем репозиторий на локальную машину:
 
+`https://github.com/PavelFil98/Yatube_blog.git`
+
 Создаем виртуальное окружение:
 
 `python -m venv venv`
