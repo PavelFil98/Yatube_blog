@@ -1,42 +1,42 @@
-# Социальная сеть «Yatube»
-## Описание
-Некоммерческий проект платформы для ведения блога с возможностью создания, просмотра, редактирования и удаления записей. Проект «Yatube» является аналогом социальной сети/блога. Проект покрыт тестами (Unittest).
+# Yatube Blog
 
-## Стек технологий
+This is a simple blogging web application built with Django, where users can create and publish posts, follow other users, comment on posts, and like them. 
 
-[![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
+## Installation
 
-## Функционал
-- добавление изображений к посту
-- регистрация, восстанавление пароля
-- создание и редактирование своих записей
-- просмотр страниц других авторов
-- комментарии для записей других авторов
-- подписки/отписки на авторов
-- записи можно отправлять в определённую группу
-- создание личной страницы, для публикации записей
-- создание отдельной ленты с постами авторов на которых подписан пользователь
-- модерация записей, работа с пользователями, создание групп осуществляется через панель администратора
-- проект покрыт тестами (Unittest)
+1. Clone the repository to your local machine using the command: 
+```bash
+git clone https://github.com/PavelFil98/Yatube_blog.git
+```
+2. Create a virtual environment using `venv` or `conda` and activate it.
+3. Install the required dependencies by running the following command:
+```bash
+pip install -r requirements.txt
+```
+4. Apply the migrations to create the database:
+```bash
+python manage.py migrate
+```
+5. To run the application, use the following command:
+```bash
+python manage.py runserver
+```
 
-## Установка
-Клонируем репозиторий на локальную машину:
+Then, navigate to `http://localhost:8000` in your web browser to see the home page of the Yatube blog.
 
-`https://github.com/PavelFil98/Yatube_blog.git`
+## Features
 
-Создаем виртуальное окружение:
+- User registration and login.
+- Creating and publishing blog posts.
+- Following other users and viewing their posts.
+- Commenting on posts and viewing comments.
+- Liking posts and viewing the number of likes.
 
-`python -m venv venv`
+## Contributing
 
-Устанавливаем зависимости:
+Contributions are always welcome! If you have any suggestions, bug reports, or feature requests, please feel free to create an issue or submit a pull request.
 
-`pip install -r requirements.txt`
+## License
 
-Применяем миграции:
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-`python manage.py migrate`
-
-Запуск:
-
-`python manage.py runserver`
